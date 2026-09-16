@@ -127,6 +127,14 @@
   </div>
 
   <div class="row">
+    <label>Preset word list:</label>
+    <select id="presetSelect">
+      <option value="">-- Custom (type your own below) --</option>
+      <option value="list1">课文三</option>
+    </select>
+  </div>
+
+  <div class="row">
     <button id="playBtn">▶ Start Dictation</button>
     <button id="stopBtn" disabled>■ Stop</button>
   </div>
@@ -170,6 +178,26 @@
     const wordlistEl = document.getElementById('wordlist');
     const logEl = document.getElementById('log');
 
+    // Preset word lists
+    const presetLists = {
+      list1: [
+        "餐厅", "大三", "曲折", "杜鹃杂生", "山径", "纵横", "乒乓球桌", "厨房",
+        "厨子", "不太确定", "一言不发", "吟哦戛然而止", "慌张", "典型", "胖嘟嘟",
+        "油腻", "黯淡", "小人物", "浅碧色", "丝带书签", "陋室铭", "责备",
+        "卑微的歉意", "福州腔", "古老", "掷地可作金石响", "哺育",
+        "被油垢染黄的脸", "夜读", "坚持", "再三", "显得异常空荡", "温和",
+        "寂寞", "安于现实生活", "自此", "曾", "善良", "目光", "景仰", "低垂",
+        "屋檐", "薰染", "锄耙", "泥香", "凄寒", "夜晚", "平仄抑扬", "吟诵",
+        "深沉", "优美"
+      ],
+    };
+
+    const presetSelect = document.getElementById('presetSelect');
+    presetSelect.addEventListener('change', (e) => {
+      const key = e.target.value;
+      if (!key) return; // "Custom" selected — leave the textarea alone
+      wordsInput.value = presetLists[key].join('\n');
+    });
     // This flag lets us cleanly cancel an in-progress dictation session.
     let isStopped = false;
 
